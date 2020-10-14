@@ -95,7 +95,11 @@ const getCellValue = ({item, expr, format, children}) => {
       cellValue = expr(item).toString()
     }
   } else {
-    cellValue = cloneChildren(item, children)
+    if (typeof(children) === "function") {
+      cellValue = children(item);
+    } else {
+      cellValue = cloneChildren(item, children)
+    }
   }
   return cellValue;
 }
