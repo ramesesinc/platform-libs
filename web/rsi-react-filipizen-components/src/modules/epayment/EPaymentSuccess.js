@@ -12,21 +12,12 @@ import {
   Text,
   currencyFormat,
   Subtitle,
-  Service
+  Spacer,
 } from "rsi-react-web-components";
 
 const EPaymentSuccess = (props) => {
   const [payment, setPayment] = useState({});
-  const [partner, setPartner] = useState({});
-
-  const loadPartner = (payment) => {
-    const svc = Service.lookup("CloudPartnerService");
-    svc.findById({id: payment.orgcode}, (err, partner) => {
-      if (!err) {
-        setPartner(partner);
-      }
-    })
-  }
+  const { partner } = props;
 
   useEffect(() => {
     const payment = {
@@ -40,12 +31,19 @@ const EPaymentSuccess = (props) => {
       email: getUrlParameter(props.location, "email"),
     }
     setPayment(payment);
-    loadPartner(payment);
   }, []);
 
   const onClose = () => {
     props.history.replace(`/partner/${partner.name}/services`, {partner});
   };
+
+  let contacts = ['For inquiries,'];
+  if (partner.phoneno) {
+    contacts.push(`contact us on ${partner.phoneno}`);
+  }
+  if (partner.email) {
+    contacts.push(contacts.length > 1 ? `or email to ${partner.email}` : `email us on ${partner.email}`);
+  }
 
   return (
       <Card>
@@ -72,12 +70,15 @@ const EPaymentSuccess = (props) => {
           <Label labelStyle={styles.text}>
             Thank you for using this service
           </Label>
-          <Label labelStyle={styles.text}>
-            For inquiries contact us at 0917-999-0001
-          </Label>
+          {contacts.length > 0 &&
+            <Label labelStyle={styles.text}>
+              {contacts.join(" ")}
+            </Label>
+          }
           <CardActions>
             <Button caption="Return" onClick={onClose} />
           </CardActions>
+          <Spacer />
         </Content>
       </Card>
   );
@@ -86,7 +87,8 @@ const EPaymentSuccess = (props) => {
 const styles = {
   text: {
     display: "block",
-    textAlign: "center"
+    textAlign: "center",
+    width: 300
   },
   paymentInfoContainer: {
     display: "flex",

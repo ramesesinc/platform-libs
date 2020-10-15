@@ -24,6 +24,17 @@ const EPaymentError = ({partner, history, location}) => {
     setMessage(getUrlParameter(location, "message"));
   }, []);
 
+  let contacts = [];
+  if (partner.phoneno) {
+    contacts.push(`Contact us on ${partner.phoneno}`);
+  }
+  if (partner.email) {
+    contacts.push(contacts.length > 0 ? `or email at ${partner.email}` : `Email us at ${partner.email}`);
+  }
+  if (contacts.length > 0) {
+    contacts.push("for any assistance.");
+  }
+
   return (
     <Panel center>
       <Panel style={{width: 400, padding: 15}}>
@@ -38,9 +49,11 @@ const EPaymentError = ({partner, history, location}) => {
               {code && <h4 style={{marginBottom: 3}}>Error {code}</h4>}
               {message && <div>{message}</div>}
               <Spacer />
-              <Label labelStyle={styles.text}>
-                Contact us at (032) 2313230 for assistance.
-              </Label>
+              {contacts.length > 0 &&
+                <Label labelStyle={styles.text}>
+                  {contacts.join(" ")}
+                </Label>
+              }
               <Spacer />
               <Button variant="text" caption="OK" onClick={onClose} />
           </Content>

@@ -60,7 +60,7 @@ const CheckoutOrder = ({ onCancel, onSubmit, bill, loading }) => {
         <Spacer />
         <ActionBar>
           <Button variant="text" caption="Back" action={onCancel} />
-          <Button caption="Continue" action={confirmOrder} loading={loading}/>
+          <Button caption="Continue" action={confirmOrder} disableWhen={loading} loading={loading}/>
         </ActionBar>
       </Panel>
     </Card>

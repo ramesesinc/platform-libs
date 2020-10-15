@@ -10,7 +10,6 @@ const EPayment = (props) => {
 
   const goBack = () => {
     props.history.goBack();
-    // props.history.push(`partner/${partner.name}/services`)
   };
 
   const updateContact = (contact) => {
