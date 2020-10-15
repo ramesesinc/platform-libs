@@ -44,12 +44,18 @@ const EPayment = (props) => {
       b.paidbyaddress = payee.paidbyaddress;
       b.email = contact.email;
       b.mobileno = contact.mobileno;
-      const svc = await Service.lookupAsync(`${partner.id}:EPaymentService`);
-      return await svc.createPaymentOrder(b);
+      let svc = await Service.lookupAsync(`${partner.id}:EPaymentService`);
+      let po = await svc.createPaymentOrder(b);
+
+      svc = await Service.lookupAsync("CloudPaymentService", "epayment");
+      po = await svc.getPaymentOrder({ objid: po.objid });
+      const payOptions = await svc.getPaymentPartnerOptions({partnerid: po.orgcode});
+      return { po, payOptions, partner };
     }
 
-    createPo().then(po => {
-      setPo(po);
+    createPo().then(data => {
+      setPo(data.po);
+      setPayOptions(data.payOptions);
       moveNext();
       setLoading(false);
     }).catch(err => {
@@ -80,6 +86,7 @@ const EPayment = (props) => {
   const [contact, setContact] = useState(initialContact);
   const [bill, setBill] = useState();
   const [po, setPo] = useState();
+  const [payOptions, setPayOptions] = useState();
   const [cancelStep, setCancelStep] = useState(0);
 
   useEffect(() => {
@@ -88,7 +95,7 @@ const EPayment = (props) => {
   }, [step]);
 
   const Component = page.component;
-  const compProps = { contact, bill, po };
+  const compProps = { contact, bill, po, payOptions };
 
   return (
     <Component

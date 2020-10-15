@@ -16,44 +16,15 @@ import {
   Loading
 } from "rsi-react-web-components";
 
-const OnlinePayment = (props) => {
+const OnlinePayment = ({po, payOptions, partner}) => {
   const [loading, setLoading] = useState(false);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [error, setError] = useState();
-  const [po, setPo] = useState();
-  const [partner, setPartner] = useState();
-  const [payOptions, setPayOptions] = useState();
   const [agreed, setAgreed] = useState(false);
   const [openAgreeMsg, setOpenAgreeMsg] = useState(false);
   const [paypartner, setPaypartner] = useState({});
 
   const postForm = useRef(null);
-
-
-  const getPaymentOrder = async () => {
-    const svc = await Service.lookupAsync("CloudPaymentService", "epayment");
-    const po = await svc.getPaymentOrder({ objid: props.po.objid });
-    const payOptions = await svc.getPaymentPartnerOptions({
-      partnerid: po.orgcode
-    });
-    const partnerSvc = await Service.lookupAsync("CloudPartnerService", "partner");
-    const partner = await partnerSvc.findById({ id: po.orgcode });
-    return { po, payOptions, partner };
-  };
-
-  useEffect(() => {
-    getPaymentOrder()
-      .then((data) => {
-        setLoading(false);
-        setPo(data.po);
-        setPartner(data.partner);
-        setPayOptions(data.payOptions);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err.toString());
-      });
-  }, []);
 
   useEffect(() => {
     const postForm = document.getElementById("postform");
