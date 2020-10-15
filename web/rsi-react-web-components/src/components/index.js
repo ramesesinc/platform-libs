@@ -25,6 +25,7 @@ export { default as Image } from "./Image";
 export { default as Integer } from "./Integer";
 export { default as Item } from "./Item";
 export { default as Label } from "./Label";
+export { default as LinearProgress } from "./LinearProgress";
 export { default as Link } from "./Link";
 export { default as LinkIcon } from "./LinkIcon";
 export { default as List } from "./List";

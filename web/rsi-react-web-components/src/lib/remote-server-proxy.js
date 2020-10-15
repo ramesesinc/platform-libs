@@ -106,6 +106,7 @@ const LocalProxy = (name, connection, module) => {
 
     const urlaction = "/filipizen/service/invoke";
 
+    console.log("LocalProxy: start fetch");
     fetch(urlaction, {
       method: "POST",
       cache: "no-cache",
@@ -116,8 +117,12 @@ const LocalProxy = (name, connection, module) => {
       },
       body: JSON.stringify(data)
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("LocalProxy: received response converting to json");
+        return res.json()
+      })
       .then((data) => {
+        console.log("LocalProxy: received data ", data);
         if (data.error) {
           handler(data.error, null)
         } else {
