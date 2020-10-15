@@ -1,6 +1,6 @@
 {
   "name": "rsi-react-filipizen-components",
-  "version": "0.1.9",
+  "version": "0.1.12",
   "description": "Filipizen React Web Components",
   "author": "ramesesinc",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "react-router-dom": "^5.2.0",
     "socket.io-client": "^2.3.0",
     "use-immer": "^0.4.1",
-    "rsi-react-web-components": "file:/home/rameses/RAMESES/platform-libs/web/rsi-react-web-components"
+    "rsi-react-web-components": "^0.1.18"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -52,9 +52,9 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
+    "rsi-react-web-components": "^0.1.18",
     "socket.io-client": "^2.3.0",
-    "use-immer": "^0.4.1",
-    "rsi-react-web-components": "file:/home/rameses/RAMESES/platform-libs/web/rsi-react-web-components"
+    "use-immer": "^0.4.1"
   },
   "files": [
     "dist"
