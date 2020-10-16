@@ -16,7 +16,11 @@ const EPaymentError = ({partner, history, location}) => {
   const [code, setCode] = useState();
 
   const onClose = () => {
-    history.replace(`/partner/${partner.name}/services`, {partner});
+    if (partner && partner.name) {
+      props.history.replace(`/partner/${partner.name}/services`, {partner});
+    } else {
+      props.history.replace("/partners");
+    }
   };
 
   useEffect(() => {
@@ -33,6 +37,8 @@ const EPaymentError = ({partner, history, location}) => {
   }
   if (contacts.length > 0) {
     contacts.push("for any assistance.");
+  } else {
+    contacts.push("For inquiries, please contact the Treasurer's Office.");
   }
 
   return (

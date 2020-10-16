@@ -16,7 +16,7 @@ import {
   Loading
 } from "rsi-react-web-components";
 
-const OnlinePayment = ({po, payOptions, partner}) => {
+const OnlinePayment = ({po, error: externalError, payOptions, partner}) => {
   const [loading, setLoading] = useState(false);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [error, setError] = useState();
@@ -83,7 +83,7 @@ const OnlinePayment = ({po, payOptions, partner}) => {
       <Spacer />
       <Panel center>
           <Panel style={styles.poContainer}>
-            <Error msg={error} />
+            <Error msg={error || externalError} />
             <Panel center>
               <Title color="green">Your Order</Title>
             </Panel>

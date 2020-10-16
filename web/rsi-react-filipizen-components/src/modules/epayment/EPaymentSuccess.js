@@ -34,15 +34,22 @@ const EPaymentSuccess = (props) => {
   }, []);
 
   const onClose = () => {
-    props.history.replace(`/partner/${partner.name}/services`, {partner});
+    if (partner && partner.name) {
+      props.history.replace(`/partner/${partner.name}/services`, {partner});
+    } else {
+      props.history.replace("/partners");
+    }
   };
 
-  let contacts = ['For inquiries,'];
+  let contacts = [];
   if (partner.phoneno) {
-    contacts.push(`contact us on ${partner.phoneno}`);
+    contacts.push(`For inquiries, contact us on ${partner.phoneno}`);
   }
   if (partner.email) {
-    contacts.push(contacts.length > 1 ? `or email to ${partner.email}` : `email us on ${partner.email}`);
+    contacts.push(contacts.length > 1 ? `or email to ${partner.email}` : `For inquiries, email us on ${partner.email}`);
+  }
+  if (contacts.length == 0) {
+    contacts.push("kindly contact the Treasurer's Office.");
   }
 
   return (
