@@ -54,4 +54,5 @@ export { default as Table } from "./Table";
 export { default as TableColumn } from "./TableColumn";
 export { default as Text } from "./Text";
 export { default as Title } from "./Title";
+export { default as UploadButton } from "./UploadButton";
 export { default as ViewButton } from "./ViewButton";

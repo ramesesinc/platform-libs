@@ -7,7 +7,10 @@ const ContactVerification = ({
   moveNextStep,
   movePrevStep,
   title,
+  visibleWhen=true
 }) => {
+  if (!visibleWhen) return null;
+
   const [ctx, dispatch] = useData();
   const [agree, setAgree] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
